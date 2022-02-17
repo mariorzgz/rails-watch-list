@@ -11,6 +11,21 @@
   </head>
 
   <body>
+
+  <div class="navbar">
+    <div class="container">
+      <div>
+        <%= link_to "Watch lists", lists_path %>
+      </div>
+      <div>
+        <%= link_to "My lists", lists_path %>
+        <%= link_to "New list", new_list_path %>
+      </div>
+    </div>
+  </div>
+
+  <div class="container justify-center-content mx-auto">
     <%= yield %>
+  </div>
   </body>
 </html>
