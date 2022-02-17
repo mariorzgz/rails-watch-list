@@ -12,7 +12,7 @@
 
   <body>
 
-  <div class="navbar">
+  <div class="navbar py-4">
     <div class="container">
       <div>
         <%= link_to "Watch lists", lists_path %>
@@ -24,8 +24,7 @@
     </div>
   </div>
 
-  <div class="container justify-center-content mx-auto">
-    <%= yield %>
-  </div>
+  <%= yield %>
+
   </body>
 </html>
