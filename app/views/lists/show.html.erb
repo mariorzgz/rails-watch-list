@@ -11,16 +11,59 @@
   </div>
 </div>
 
-<div class="row justify-content-center mb-4">
-  <div class="col-10">
-    <h2>My movies</h2>
+<div class="container">
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-12">
+      <h2>My movies</h2>
+    </div>
   </div>
-  <div class="col-2 d-flex align-items-center">
-    <%= link_to "Add a movie", new_movie_path, class: "btn btn-success" %>
+
+  <% if @list.movies == [] %>
+
+    <p>Your list is empty. Wanna start adding films into your list?</p>
+
+  <% else %>
+
+  <div class="row">
+
+    <% @list.movies.each do |movie| %>
+      <div class="col-3">
+        <% if movie.poster_url.nil? %>
+          <% movie_image_url = "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" %>
+        <% else %>
+          <% movie_image_url = movie.poster_url %>
+        <% end %>
+        <div class="card-trip">
+          <img src="<%= movie_image_url %>" />
+
+          <div class="card-trip-infos">
+            <div>
+              <h2><%= movie.title %></h2>
+              <p><%= movie.overview %></p>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <% link_to "Delete", bookmark_path(movie.find_bookmark(@list)),
+                                  method: :delete,
+                                  data: { confirm: 'Are your sure?'}
+            %>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+
   </div>
+
+  <% end %>
+
+  <div class="card mt-5 p-5">
+  <h2>Add a movie in your list</h2>
+    <div class="card-body">
+        <%= render "bookmarks/form", list: @list, bookmark: Bookmark.new %>
+    </div>
+  </div>
+
 </div>
-
-<% @list.each do |movie| %>
-
-
-<% end %>
