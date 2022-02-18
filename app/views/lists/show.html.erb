@@ -61,7 +61,7 @@
 
     <div class="col-4">
       <div class="card p-5">
-        <h2>Add a movie in your list</h2>
+        <h2>Add a movie in this list</h2>
         <div class="card-body">
             <%= render "bookmarks/form", list: @list, bookmark: Bookmark.new %>
         </div>
@@ -71,7 +71,33 @@
   </div> <!-- End of the row -->
 
   <div class="row mt-4"> <!-- Beginning of the row -->
-    <h2>Reviews</h2>
+
+    <h2 class="mb-3">Reviews</h2>
+
+      <% if @list.reviews == [] %>
+
+      <p>There are no reviews yet. Wanna be the first?</p>
+
+      <% else %>
+
+        <ul class="list-group mb-4">
+
+        <% @list.reviews.each do |review| %>
+
+          <li class="list-group-item d-flex align-items-center">
+            <p class="m-0 py-2"><%= review.content %></p>
+          </li>
+
+        <% end %>
+
+      <% end %>
+
+      </ul>
+
+      <h4 class="mb-3">Add a review</h4>
+
+      <%= render "reviews/form", list: @list, review: Review.new %>
+
   </div>
 
 </div>
