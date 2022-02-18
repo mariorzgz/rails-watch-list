@@ -50,7 +50,7 @@ def scrape_movie(movie_url)
 end
 
 puts "Fetching movies urls"
-top100_movie_urls = fetch_movies_urls(50)
+top100_movie_urls = fetch_movies_urls(100)
 
 top100_movie_urls.each do |movie_url|
   puts "Creating #{movie_url}"
