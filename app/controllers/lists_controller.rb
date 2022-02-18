@@ -3,6 +3,7 @@ class ListsController < ApplicationController
 
   def index
     @lists = List.all
+    # default_photo
   end
 
   def show; end
@@ -29,4 +30,5 @@ class ListsController < ApplicationController
   def list_params
     params.require(:list).permit(:name, :photo)
   end
+
 end

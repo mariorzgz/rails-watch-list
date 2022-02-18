@@ -1,4 +1,4 @@
-<div class="banner mb-4" style="position: relative; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
+<div class="banner mb-4" style="position: relative; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.default_photo %>);">
   <p class="btn btn-warning" style="opacity: 1; position: absolute; top: 10px; right: 10px"><%= @list.movies.count %> movies</p>
   <div class="container">
     <h1><%= @list.name %></h1>
@@ -13,52 +13,65 @@
     </div>
   </div>
 
-  <% if @list.movies == [] %>
+  <div class="row"> <!-- Beginning of the row -->
 
-    <p>Your list is empty. Wanna start adding films into your list?</p>
+    <div class="col-8">
 
-  <% else %>
+      <% if @list.movies == [] %>
 
-  <div class="row">
+        <p>Your list is empty. Wanna start adding films into your list?</p>
 
-    <% @list.movies.each do |movie| %>
-      <div class="col-3">
-        <div class="card-trip">
-          <%= image_tag movie.poster_url %>
+      <% else %>
 
-          <div class="card-trip-infos d-flex flex-column">
+        <div class="row">
 
-            <div class="d-flex mb-2 justify-content-between align-items-center">
-              <h2><%= movie.title %></h2>
-              <div><%= movie.rating %> <i class="fas fa-star"></i></div>
+          <% @list.movies.each do |movie| %>
+            <div class="col-4">
+              <div class="card-trip">
+                <%= image_tag movie.poster_url %>
+
+                <div class="card-trip-infos d-flex flex-column">
+
+                  <div class="d-flex mb-2 justify-content-between align-items-center">
+                    <h2><%= movie.title %></h2>
+                    <div><%= movie.rating %> <i class="fas fa-star"></i></div>
+                  </div>
+
+                  <div>
+                    <p><%= movie.overview %></p>
+                  </div>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                  <p><i class="fas fa-quote-left"></i> <%= movie.find_bookmark(@list).comment %></p>
+                  <%= link_to "Delete", bookmark_path(movie.find_bookmark(@list)),
+                                        method: :delete,
+                                        data: { confirm: 'Are your sure?'}, class: "btn btn-danger"
+                  %>
+                </div>
+              </div>
             </div>
-
-            <div>
-              <p><%= movie.overview %></p>
-            </div>
-          </div>
-
-          <div class="card-footer d-flex justify-content-between align-items-center">
-            <p><i class="fas fa-quote-left"></i> <%= movie.find_bookmark(@list).comment %></p>
-            <%= link_to "Delete", bookmark_path(movie.find_bookmark(@list)),
-                                  method: :delete,
-                                  data: { confirm: 'Are your sure?'}, class: "btn btn-danger"
-            %>
-          </div>
+          <% end %>
 
         </div>
-      </div>
-    <% end %>
 
-  </div>
+      <% end %>
 
-  <% end %>
-
-  <div class="card mt-5 p-5">
-  <h2>Add a movie in your list</h2>
-    <div class="card-body">
-        <%= render "bookmarks/form", list: @list, bookmark: Bookmark.new %>
     </div>
+
+    <div class="col-4">
+      <div class="card p-5">
+        <h2>Add a movie in your list</h2>
+        <div class="card-body">
+            <%= render "bookmarks/form", list: @list, bookmark: Bookmark.new %>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- End of the row -->
+
+  <div class="row mt-4"> <!-- Beginning of the row -->
+    <h2>Reviews</h2>
   </div>
 
 </div>
