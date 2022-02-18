@@ -1,10 +1,4 @@
-<% if @list.image_url.nil? %>
-  <% image_url = "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" %>
-<% else %>
-  <% image_url = @list.image_url %>
-<% end %>
-
-<div class="banner mb-4" style="position: relative; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= image_url %>);">
+<div class="banner mb-4" style="position: relative; background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key %>);">
   <p class="btn btn-warning" style="opacity: 1; position: absolute; top: 10px; right: 10px"><%= @list.movies.count %> movies</p>
   <div class="container">
     <h1><%= @list.name %></h1>
@@ -29,13 +23,8 @@
 
     <% @list.movies.each do |movie| %>
       <div class="col-3">
-        <% if movie.poster_url.nil? %>
-          <% movie_image_url = "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" %>
-        <% else %>
-          <% movie_image_url = movie.poster_url %>
-        <% end %>
         <div class="card-trip">
-          <img src="<%= movie_image_url %>" />
+          <%= image_tag movie.poster_url %>
 
           <div class="card-trip-infos d-flex flex-column">
 

@@ -19,13 +19,8 @@
 
     <% @lists.each do |list| %>
       <div class="col-3">
-        <% if list.image_url.nil? %>
-          <% image_url = "https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" %>
-        <% else %>
-          <% image_url = list.image_url %>
-        <% end %>
-        <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= image_url %>)">
-          <%= link_to list.name, list_path(list) %>
+        <div class="card-category position-relative" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path list.photo.key %>)">
+          <%= link_to list.name, list_path(list), class: "stretched-link" %>
         </div>
       </div>
     <% end %>
